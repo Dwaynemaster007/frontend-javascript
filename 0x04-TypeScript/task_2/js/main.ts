@@ -57,9 +57,9 @@ function isDirector(employee: Director | Teacher): employee is Director {
 
 function executeWork(employee: Director | Teacher): void {
     if (isDirector(employee)) {
-        console.log(employee.workDirectorTasks());
+        employee.workDirectorTasks();
     } else {
-        console.log(employee.workTeacherTasks());
+        employee.workTeacherTasks();
     }
 }
 
