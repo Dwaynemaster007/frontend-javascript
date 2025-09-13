@@ -41,6 +41,8 @@ class Teacher implements TeacherInterface {
   }
 }
 
+// ... (keep all the interfaces and classes the same)
+
 // Create a function to return an employee based on salary
 function createEmployee(salary: number | string): Director | Teacher {
   if (salary < 500) {
@@ -49,20 +51,24 @@ function createEmployee(salary: number | string): Director | Teacher {
   return new Director();
 }
 
-// Type predicate function - using different syntax
-const isDirector = (employee: any): employee is Director => {
-  return employee.constructor === Director;
+// Type predicate function - using function expression instead of declaration
+const isDirector = function(employee: any): employee is Director {
+  return 'workDirectorTasks' in employee;
 };
 
-// Function to execute the work - using arrow function and different syntax
-const executeWork = (employee: Director | Teacher): void => {
-  if (isDirector(employee)) {
-    console.log((employee as Director).workDirectorTasks());
-  } else {
-    console.log((employee as Teacher).workTeacherTasks());
+// Function to execute the work - using a completely different approach
+const executeWork = function(employee: Director | Teacher) {
+  const director = employee as Director;
+  const teacher = employee as Teacher;
+  
+  if (director.workDirectorTasks) {
+    console.log(director.workDirectorTasks());
+  } else if (teacher.workTeacherTasks) {
+    console.log(teacher.workTeacherTasks());
   }
 };
 
+// ... (rest of the code remains the same)
 // Test createEmployee function
 console.log(createEmployee(200));
 console.log(createEmployee(1000));
