@@ -50,28 +50,28 @@ function createEmployee(salary: number | string): Director | Teacher {
   }
 }
 
-// Type predicate function to check if an employee is a Director
+// Type predicate function
 function isDirector(employee: Director | Teacher): employee is Director {
   return (employee as Director).workDirectorTasks !== undefined;
 }
 
-// Function to execute the work based on employee type
+// Execute work function - this should just call the methods (they return strings)
 function executeWork(employee: Director | Teacher): void {
   if (isDirector(employee)) {
-    console.log(employee.workDirectorTasks());
+    employee.workDirectorTasks();
   } else {
-    console.log(employee.workTeacherTasks());
+    employee.workTeacherTasks();
   }
 }
 
-// Log expected results
+// Test the functions
 console.log(createEmployee(200));
 console.log(createEmployee(1000));
 console.log(createEmployee('$500'));
 
-// Expected results for executeWork
-executeWork(createEmployee(200));
-executeWork(createEmployee(1000));
+// These will log the expected results
+executeWork(createEmployee(200)); // Should log "Getting to work"
+executeWork(createEmployee(1000)); // Should log "Getting to director tasks"
 
 // Define the String literal type
 type Subjects = 'Math' | 'History';
