@@ -51,15 +51,17 @@ function createEmployee(salary: number | string): Director | Teacher {
 
 // Type predicate function to check if an employee is a Director
 function isDirector(employee: any): employee is Director {
-  return employee.workDirectorTasks !== undefined;
+  return employee instanceof Director;
 }
 
 // Function to execute the work based on employee type
 function executeWork(employee: Director | Teacher): void {
   if (isDirector(employee)) {
-    employee.workDirectorTasks();
+    const result = employee.workDirectorTasks();
+    console.log(result);
   } else {
-    employee.workTeacherTasks();
+    const result = employee.workTeacherTasks();
+    console.log(result);
   }
 }
 
@@ -79,7 +81,7 @@ type Subjects = 'Math' | 'History';
 function teachClass(todayClass: Subjects): string {
   if (todayClass === 'Math') {
     return 'Teaching Math';
-  } else if (todayClass === 'History') {
+  } else {
     return 'Teaching History';
   }
 }
