@@ -43,17 +43,12 @@ class Teacher implements TeacherInterface {
 
 // Create a function to return an employee based on salary
 function createEmployee(salary: number | string): Director | Teacher {
-  if (typeof salary === 'number' && salary < 500) {
+  if (salary < 500) {
     return new Teacher();
   } else {
     return new Director();
   }
 }
-
-// Log expected results
-console.log(createEmployee(200));
-console.log(createEmployee(1000));
-console.log(createEmployee('$500'));
 
 // Type predicate function to check if an employee is a Director
 function isDirector(employee: Director | Teacher): employee is Director {
@@ -69,9 +64,14 @@ function executeWork(employee: Director | Teacher): void {
   }
 }
 
-// Expected results
-console.log(executeWork(createEmployee(200)));
-console.log(executeWork(createEmployee(1000)));
+// Log expected results
+console.log(createEmployee(200));
+console.log(createEmployee(1000));
+console.log(createEmployee('$500'));
+
+// Expected results for executeWork
+executeWork(createEmployee(200));
+executeWork(createEmployee(1000));
 
 // Define the String literal type
 type Subjects = 'Math' | 'History';
