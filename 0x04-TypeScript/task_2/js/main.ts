@@ -55,12 +55,12 @@ function isDirector(employee: Director | Teacher): employee is Director {
   return (employee as Director).workDirectorTasks !== undefined;
 }
 
-// Execute work function - this should just call the methods (they return strings)
+// Execute work function - this should log the results
 function executeWork(employee: Director | Teacher): void {
   if (isDirector(employee)) {
-    employee.workDirectorTasks();
+    console.log(employee.workDirectorTasks());
   } else {
-    employee.workTeacherTasks();
+    console.log(employee.workTeacherTasks());
   }
 }
 
