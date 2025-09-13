@@ -41,26 +41,21 @@ class Teacher implements TeacherInterface {
   }
 }
 
-// ... (keep all the interfaces and classes the same)
-
 // Create a function to return an employee based on salary
 function createEmployee(salary: number | string): Director | Teacher {
-  if (typeof salary === 'string') {
-    salary = parseInt(salary.replace(/\D/g, ''));
-  }
   if (salary < 500) {
     return new Teacher();
   }
   return new Director();
 }
 
-// Type predicate function - exported as per grader requirements
-export function isDirector(employee: any): employee is Director {
-  return 'workDirectorTasks' in employee;
+// Type predicate function - exported as function declaration
+export function isDirector(employee: Director | Teacher): employee is Director {
+  return employee instanceof Director;
 }
 
-// Function to execute the work
-export function executeWork(employee: Director | Teacher): string {
+// Function to execute the work - return the result instead of console.log
+function executeWork(employee: Director | Teacher): string {
   if (isDirector(employee)) {
     return employee.workDirectorTasks();
   } else {
@@ -68,7 +63,6 @@ export function executeWork(employee: Director | Teacher): string {
   }
 }
 
-// ... (rest of the code remains the same)
 // Test createEmployee function
 console.log(createEmployee(200));
 console.log(createEmployee(1000));
