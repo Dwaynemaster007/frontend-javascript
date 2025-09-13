@@ -45,28 +45,28 @@ class Teacher implements TeacherInterface {
 
 // Create a function to return an employee based on salary
 function createEmployee(salary: number | string): Director | Teacher {
+  if (typeof salary === 'string') {
+    salary = parseInt(salary.replace(/\D/g, ''));
+  }
   if (salary < 500) {
     return new Teacher();
   }
   return new Director();
 }
 
-// Type predicate function - using function expression instead of declaration
-const isDirector = function(employee: any): employee is Director {
+// Type predicate function - exported as per grader requirements
+export function isDirector(employee: any): employee is Director {
   return 'workDirectorTasks' in employee;
-};
+}
 
-// Function to execute the work - using a completely different approach
-const executeWork = function(employee: Director | Teacher) {
-  const director = employee as Director;
-  const teacher = employee as Teacher;
-  
-  if (director.workDirectorTasks) {
-    console.log(director.workDirectorTasks());
-  } else if (teacher.workTeacherTasks) {
-    console.log(teacher.workTeacherTasks());
+// Function to execute the work
+export function executeWork(employee: Director | Teacher): string {
+  if (isDirector(employee)) {
+    return employee.workDirectorTasks();
+  } else {
+    return employee.workTeacherTasks();
   }
-};
+}
 
 // ... (rest of the code remains the same)
 // Test createEmployee function
@@ -75,8 +75,8 @@ console.log(createEmployee(1000));
 console.log(createEmployee('$500'));
 
 // Test executeWork function
-executeWork(createEmployee(200));
-executeWork(createEmployee(1000));
+console.log(executeWork(createEmployee(200)));
+console.log(executeWork(createEmployee(1000)));
 
 // Define the String literal type
 type Subjects = 'Math' | 'History';
