@@ -1,11 +1,6 @@
-// Add the declaration merging for the Teacher interface
-namespace Subjects {
-  export interface Teacher {
-    experienceTeachingC?: number;
-  }
-}
+import { Subject } from './Subject';
+import { Teacher } from './Teacher';
 
-// All other imports and class code should follow
 export class Cpp extends Subject {
   getRequirements(): string {
     return 'Here is the list of requirements for Cpp';
